@@ -11,45 +11,26 @@
  */
 function lengthOfLongestSubstring($s)
 {
-  $hash = [];
+  $len = strlen($s);
+
+  $freq = [];
+  $start = 0;
   $max = 0;
-  $counter = 0;
-  $startCounterAfter = 0;
-
-  $N = strlen($s);
-  for ($i = 0; $i < $N; $i++) {
-    $c = $s[$i];
-
-    if (!isset($hash[$c])) {
-      $counter++;
-      $hash[$c] = $i;
-    } else {
-      if ($hash[$c] > $startCounterAfter) {
-        // print_r($hash);
-        // echo 'Index - ' . $i . ' old ind '.$hash[$c]. PHP_EOL;
-        // echo 'counter af ' . $startCounterAfter . PHP_EOL;
-        $diff = $hash[$c] - $startCounterAfter;
-        $counter = $counter - $diff;
-        if ($counter == 1)
-          $hash = [];
-        $startCounterAfter = $i;
-      } else {
-        $startCounterAfter = $hash[$c];
-        $counter = $i - $hash[$c];
-        if ($counter == 1) {
-          $hash = [];
-          $startCounterAfter = $i;
-        }
-        // echo 'count dif is ' . $hash[$c] .' | ' . $c .' - '. $i  . ($counter) . PHP_EOL; 
-        // print_r($hash);
+  for ($end = 0; $end < $len; $end++) {
+    $c = $s[$end];
+    if (array_key_exists($c, $freq) && $freq[$c] == 1) {
+      while ($start < $end) {
+        $cStart = $s[$start];
+        $freq[$cStart] = 0;
+        $start++;
+        if ($cStart == $c)
+          break;
       }
-      // echo $counter . ' cou '. PHP_EOL;
-      $hash[$c] = $i;
     }
-    $max = max($counter, $max);
-
-    // echo $counter . ' - '.$c . PHP_EOL;
+    $freq[$c] = 1;
+    $max = max($max, 1 + $end - $start);
   }
+
   return $max;
 }
 ?>
