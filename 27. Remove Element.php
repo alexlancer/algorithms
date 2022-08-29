@@ -15,25 +15,35 @@ class Solution
    */
   function removeElement(&$nums, $val)
   {
-    $N = count($nums);
-    if($N < 1)
-    return $N;
-    
-    $count = $N;
-    $i = 0;
-    while($i < $N){
-      $curr = $nums[$i];
-      if($curr == $val){
+    for ($i = 0, $ii = count($nums); $i < $ii; $i++) {
+      if ($nums[$i] === $val) {
         unset($nums[$i]);
-        $count--;
-        array_push($nums, false);
       }
-      if($count === 0)
-        break;
-      $i++;
     }
-    return $count;
+
+    return count($nums);
   }
+  // function removeElement(&$nums, $val)
+  // {
+  //   $N = count($nums);
+  //   if($N < 1)
+  //   return $N;
+    
+  //   $count = $N;
+  //   $i = 0;
+  //   while($i < $N){
+  //     $curr = $nums[$i];
+  //     if($curr == $val){
+  //       unset($nums[$i]);
+  //       $count--;
+  //       array_push($nums, false);
+  //     }
+  //     if($count === 0)
+  //       break;
+  //     $i++;
+  //   }
+  //   return $count;
+  // }
 }
 
 $nums = [1,1]; $val = 1;
